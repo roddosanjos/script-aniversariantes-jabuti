@@ -1,0 +1,26 @@
+name: Enviar aniversário por e-mail
+
+on:
+  schedule:
+    - cron: '0 8 * * *'  # Executa todos os dias às 8h UTC
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run script
+        run: |
+          python aniversariantes.py
