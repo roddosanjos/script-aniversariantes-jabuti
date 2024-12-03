@@ -11,22 +11,15 @@ from email.mime.multipart import MIMEMultipart
 # Definir o escopo de acesso
 escopo = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 
-# Carregar as credenciais do Google Cloud a partir da variável de ambiente
-credenciais_json = os.getenv('GOOGLE_CREDENTIALS_JSON')
+# Certificar que o arquivo 'credentials.json' existe no ambiente
+credenciais_path = './credentials.json'
 
-# Exibir o conteúdo para depuração (cuidado para não exibir informações sensíveis)
-print("Conteúdo das credenciais JSON:", credenciais_json)
+# Verificar se o arquivo de credenciais existe
+if not os.path.exists(credenciais_path):
+    raise ValueError(f"O arquivo de credenciais '{credenciais_path}' não foi encontrado.")
 
-# Verifique se a variável de ambiente foi configurada corretamente
-if credenciais_json is None:
-    raise ValueError("As credenciais do Google Cloud não foram configuradas no GitHub Secrets.")
-
-# Verificar se a variável não está vazia
-if not credenciais_json:
-    raise ValueError("A variável de ambiente 'GOOGLE_CREDENTIALS_JSON' está vazia ou não foi configurada corretamente.")
-
-# Converter a variável de ambiente JSON em um dicionário
-credenciais = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(credenciais_json), escopo)
+# Carregar as credenciais a partir do arquivo JSON
+credenciais = ServiceAccountCredentials.from_json_keyfile_name(credenciais_path, escopo)
 
 # Autenticar e acessar o Google Sheets
 cliente = gspread.authorize(credenciais)
