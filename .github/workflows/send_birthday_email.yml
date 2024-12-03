@@ -24,5 +24,7 @@ jobs:
           GOOGLE_CREDENTIALS_JSON: ${{ secrets.GOOGLE_CREDENTIALS_JSON }}
         run: |
           echo "GOOGLE_CREDENTIALS_JSON=$GOOGLE_CREDENTIALS_JSON" >> $GITHUB_ENV
+      - name: Debug Google credentials
+        run: echo $GOOGLE_CREDENTIALS_JSON
       - name: Run script
         run: python jabuti_niver.py
