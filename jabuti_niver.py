@@ -18,6 +18,13 @@ credenciais_json = os.getenv('GOOGLE_CREDENTIALS_JSON')
 if credenciais_json is None:
     raise ValueError("As credenciais do Google Cloud não foram configuradas no GitHub Secrets.")
 
+# Verificar se a variável não está vazia
+if not credenciais_json:
+    raise ValueError("A variável de ambiente 'GOOGLE_CREDENTIALS_JSON' está vazia ou não foi configurada corretamente.")
+
+# Exibir o conteúdo para depuração (cuidado para não exibir informações sensíveis)
+print("Conteúdo das credenciais JSON:", credenciais_json)
+
 # Converter a variável de ambiente JSON em um dicionário
 credenciais = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(credenciais_json), escopo)
 
