@@ -8,23 +8,34 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.12'
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Set up GOOGLE CREDENTIALS
-        env:
-          GOOGLE_CREDENTIALS_JSON: ${{ secrets.GOOGLE_CREDENTIALS_JSON }}
+
+      # Etapa para criar o arquivo de credenciais a partir do segredo no GitHub
+      - name: Create credentials file from GitHub Secret
         run: |
-          echo "GOOGLE_CREDENTIALS_JSON=$GOOGLE_CREDENTIALS_JSON" >> $GITHUB_ENV
-      - name: Debug Google credentials
-        run: echo $GOOGLE_CREDENTIALS_JSON
+          echo "$GOOGLE_CREDENTIALS_JSON" > credentials.json
+
+      # Etapa para rodar o script Python com as credenciais
       - name: Run script
-        run: python jabuti_niver.py
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ./credentials.json  # Aponta para o arquivo de credenciais
+        run: |
+          python jabuti_niver.py
+
+      # Etapa para limpar o arquivo de credenciais após o uso
+      - name: Clean up credentials
+        run: |
+          rm credentials.json
