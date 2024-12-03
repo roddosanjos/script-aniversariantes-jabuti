@@ -14,6 +14,9 @@ escopo = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/a
 # Carregar as credenciais do Google Cloud a partir da variável de ambiente
 credenciais_json = os.getenv('GOOGLE_CREDENTIALS_JSON')
 
+# Exibir o conteúdo para depuração (cuidado para não exibir informações sensíveis)
+print("Conteúdo das credenciais JSON:", credenciais_json)
+
 # Verifique se a variável de ambiente foi configurada corretamente
 if credenciais_json is None:
     raise ValueError("As credenciais do Google Cloud não foram configuradas no GitHub Secrets.")
@@ -21,9 +24,6 @@ if credenciais_json is None:
 # Verificar se a variável não está vazia
 if not credenciais_json:
     raise ValueError("A variável de ambiente 'GOOGLE_CREDENTIALS_JSON' está vazia ou não foi configurada corretamente.")
-
-# Exibir o conteúdo para depuração (cuidado para não exibir informações sensíveis)
-print("Conteúdo das credenciais JSON:", credenciais_json)
 
 # Converter a variável de ambiente JSON em um dicionário
 credenciais = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(credenciais_json), escopo)
