@@ -108,7 +108,8 @@ senha_email = os.getenv('GMAIL_PASSWORD')  # Obtendo a senha do Gmail dos GitHub
 # Lista de destinatários de e-mail
 destinatarios_email = [
     "rdgdosanjos@gmail.com",  # Substitua pelos e-mails para os quais deseja enviar
-    "sthefanny_chris@icloud.com"
+    "sthefanny_chris@icloud.com",
+    "bizinha.ramos@gmail.com"
 ]
 
 # Enviar o e-mail com a lista de aniversariantes
