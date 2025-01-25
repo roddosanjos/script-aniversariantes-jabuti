@@ -3,6 +3,7 @@ import os
 import json
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
+import pytz
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -34,8 +35,9 @@ dados = planilha.get_all_records()
 print(dados)
 
 # ---------------------Verificar aniversariantes do dia------------------------------------
-# Obter a data de hoje no formato (dia-mês)
-hoje = datetime.today().strftime('%m-%d')  # No formato 'MM-DD'
+# Obter a data de hoje no formato (dia-mês) considerando o fuso horário correto
+tz = pytz.timezone('America/Sao_Paulo')  # Fuso horário de São Paulo
+hoje = datetime.now(tz).strftime('%m-%d')  # Data de hoje considerando o fuso horário
 print(f"Data de hoje: {hoje}")  # Imprimir a data de hoje
 
 # Filtrar aniversariantes de hoje
@@ -51,7 +53,7 @@ for linha in dados:
     # Comparar a data do aniversário (sem o ano) com a data de hoje
     if aniversario_formatado == hoje:
         # Calcular a idade
-        hoje_date = datetime.today()
+        hoje_date = datetime.now(tz)
         idade = hoje_date.year - data_aniversario.year
         if hoje_date.month < data_aniversario.month or (hoje_date.month == data_aniversario.month and hoje_date.day < data_aniversario.day):
             idade -= 1  # Se ainda não fez aniversário este ano, subtrair 1
