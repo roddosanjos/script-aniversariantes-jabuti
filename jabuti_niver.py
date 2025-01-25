@@ -52,12 +52,19 @@ for linha in dados:
         if hoje_date.month < data_aniversario.month or (hoje_date.month == data_aniversario.month and hoje_date.day < data_aniversario.day):
             idade -= 1  # Se ainda não fez aniversário este ano, subtrair 1
         
-        # Adicionar o aniversariante com nome, idade e telefone
-        aniversariantes_hoje.append({
+        # Adicionar o aniversariante com nome, idade, telefone e foto para postagem
+        aniversariante = {
             'Nome': linha['Nome Completo'],
             'Idade': idade,
-            'Telefone': linha['Telefone p/ contato']
-        })
+            'Telefone': linha['Telefone p/ contato'],
+            'Foto para postagem': linha['Sua foto para postagem']  # Novo campo
+        }
+        
+        # Se a foto não estiver cadastrada, substituímos por "sem foto cadastrada"
+        if not aniversariante['Foto para postagem']:
+            aniversariante['Foto para postagem'] = "sem foto cadastrada"
+        
+        aniversariantes_hoje.append(aniversariante)
 
 # ---------------------Criar a mensagem para E-mail------------------------------------
 # Criar a mensagem
@@ -65,7 +72,7 @@ if aniversariantes_hoje:
     # Se houver aniversariantes, cria a lista
     mensagem = "Lista de aniversariantes de hoje:\n\n"
     for aniversariante in aniversariantes_hoje:
-        mensagem += f"Nome: {aniversariante['Nome']}, Idade: {aniversariante['Idade']}, Telefone: {aniversariante['Telefone']}\n"
+        mensagem += f"Nome: {aniversariante['Nome']}, Idade: {aniversariante['Idade']}, Telefone: {aniversariante['Telefone']}, Foto: {aniversariante['Foto para postagem']}\n"
     mensagem += "\nFeliz aniversário a todos! 🎉🎂"
 else:
     # Se não houver aniversariantes
