@@ -36,6 +36,7 @@ print(dados)
 # ---------------------Verificar aniversariantes do dia------------------------------------
 # Obter a data de hoje no formato (dia-mês)
 hoje = datetime.today().strftime('%m-%d')  # No formato 'MM-DD'
+print(f"Data de hoje: {hoje}")  # Imprimir a data de hoje
 
 # Filtrar aniversariantes de hoje
 aniversariantes_hoje = []
@@ -43,6 +44,9 @@ for linha in dados:
     # Converter a data de nascimento para o formato datetime usando o formato correto
     data_aniversario = datetime.strptime(linha['Data de Nascimento'], '%d/%m/%Y')
     aniversario_formatado = data_aniversario.strftime('%m-%d')  # Formatar como 'MM-DD'
+    
+    # Imprimir a data do aniversário
+    print(f"Data de aniversário: {aniversario_formatado}")
     
     # Comparar a data do aniversário (sem o ano) com a data de hoje
     if aniversario_formatado == hoje:
