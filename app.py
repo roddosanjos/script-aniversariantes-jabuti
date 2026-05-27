@@ -154,9 +154,10 @@ if st.button("Buscar Aniversariantes", use_container_width=True):
             
             if aniversariantes_encontrados:
                 for pessoa in aniversariantes_encontrados:
+                    # Ajuste de aspas corrigido para evitar SyntaxError
                     foto_html = ""
                     if pessoa['Foto'] != "Sem foto cadastrada" and pessoa['Foto'].startswith("http"):
-                        foto_html = f'<a class="link-foto" href="{pessoa[\'Foto\']}" target="_blank">📸 Abrir foto para postagem</a>'
+                        foto_html = f'<a class="link-foto" href="{pessoa["Foto"]}" target="_blank">📸 Abrir foto para postagem</a>'
                     else:
                         foto_html = '<span style="color: #999999; font-style: italic;">📸 Sem foto cadastrada</span>'
 
