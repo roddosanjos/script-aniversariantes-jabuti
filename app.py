@@ -143,11 +143,11 @@ if os.path.exists("logo.jpg"):
         st.image("logo.jpg", use_container_width=True)
 
 # Título e Subtítulo
-st.markdown('<h1 class="titulo-principal">Jabuti do Lavrado</h1>', unsafe_allow_html=True)
-st.markdown('<p class="subtitulo">🎂 Painel Festivo de Aniversariantes 🎈</p>', unsafe_allow_html=True)
+st.markdown('<h1 class="titulo-principal">🐢 Jabuti do Lavrado  </h1>', unsafe_allow_html=True)
+st.markdown('<p class="subtitulo">🎂 Painel dos Jabutis Aniversariantes </p>', unsafe_allow_html=True)
 
 # Bloco de input
-data_input = st.text_input("Qual data deseja festejar? (Exemplo: 31/05)", placeholder="DD/MM")
+data_input = st.text_input("🎈 Busque os aniversariantes do dia (Exemplo: 31/05)", placeholder="DD/MM")
 
 if st.button("✨ Buscar Aniversariantes ✨", use_container_width=True):
     if not data_input:
